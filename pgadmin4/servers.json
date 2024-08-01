@@ -1,0 +1,15 @@
+{
+    "Servers": {
+      "1": {
+        "Name": "Local",
+        "Group": "Servers",
+        "Host": "${HOST_DB}",
+        "Port": ${PORT_DB},
+        "MaintenanceDB": "${NAME_DB}",
+        "Username": "${USER_DB}",
+        "PassFile": "/tmp/pgpass",
+        "SSLMode": "prefer"
+      }
+    }
+  }
+  

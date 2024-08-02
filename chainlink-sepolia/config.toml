@@ -1,8 +1,8 @@
 [Log]
-Level = 'warn'
+Level = 'debug'
 
 [WebServer]
-AllowOrigins = '\*'
+AllowOrigins = '*'
 SecureCookies = false
 
 [WebServer.TLS]
@@ -14,3 +14,4 @@ ChainID = '11155111'
 [[EVM.Nodes]]
 Name = 'Sepolia'
 WSURL = 'wss://ethereum-sepolia-rpc.publicnode.com'
+HTTPURL = 'https://ethereum-sepolia-rpc.publicnode.com'

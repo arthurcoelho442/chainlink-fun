@@ -59,6 +59,7 @@ services:
     env_file: .env
     depends_on:
       - postgres_chainlink
+    restart: unless-stopped
     ports:
       - "6688:6688"
     volumes:

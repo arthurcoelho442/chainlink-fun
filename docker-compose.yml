@@ -14,8 +14,8 @@ services:
       - postgres_chainlink:/var/lib/postgresql/data
     networks:
       - chainlinknet
-  pgadmin4:
-    container_name: pgadmin4
+  pgadmin4_chainlink:
+    container_name: pgadmin4_chainlink
     build: 
       context: ./pgadmin4
     restart: unless-stopped
@@ -31,7 +31,7 @@ services:
       PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED:  ${PASSWORD_REQUIRED}
       PGADMIN_CONFIG_SERVER_MODE:               'False'
     volumes:
-      - pgadmin4:/var/lib/pgadmin
+      - pgadmin4_chainlink:/var/lib/pgadmin
 
     entrypoint: >
       /bin/sh -c '
@@ -55,23 +55,24 @@ services:
       - chainlinknet
   chainlink:
     container_name: chainlink
-    image: "smartcontract/chainlink:2.13.0"
+    image: "smartcontract/chainlink:2.14.0"
     env_file: .env
     depends_on:
       - postgres_chainlink
     restart: unless-stopped
     ports:
-      - "6688:6688"
+      - ${PORT_CHAINLINK}:6688
     volumes:
       - .\chainlink-sepolia:/chainlink/
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    command: node -config /chainlink/config.toml -secrets /chainlink/secrets.toml start
+    command: node -config /chainlink/config.toml -secrets /chainlink/secrets.toml start -a /chainlink/.api
     networks:
       - chainlinknet
+
 volumes:
   postgres_chainlink:
-  pgadmin4:
+  pgadmin4_chainlink:
 
 networks:
   chainlinknet:
